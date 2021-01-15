@@ -1,0 +1,19 @@
+workflows:
+  build:
+    jobs:
+      - setup
+jobs:
+  setup:
+    docker:
+      - image: alpine:3.11.6
+    steps:
+      - run:
+          name: install git and curl
+          command: apk add git curl
+      - checkout
+      - install
+      - run:
+          name: github-comment --version
+          command: |
+            export PATH=$PWD/bin:$PATH
+            github-comment --version

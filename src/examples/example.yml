@@ -1,0 +1,25 @@
+description: |
+  Install tools with akoi.
+usage:
+  version: 2.1
+  orbs:
+    akoi: suzuki-shunsuke/akoi@0.1.0
+  workflows:
+    build:
+      jobs:
+        - setup
+  jobs:
+    setup:
+      docker:
+        - image: alpine:3.11.6
+      steps:
+        - run:
+            name: install git and curl
+            command: apk add git curl
+        - checkout
+        - akoi
+        - run:
+            name: github-comment --version
+            command: |
+              export PATH=$PWD/bin:$PATH
+              github-comment --version

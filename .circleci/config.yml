@@ -1,0 +1,41 @@
+---
+version: 2.1
+
+orbs:
+  orb: suzuki-shunsuke/orb@0.1.1
+
+workflows:
+  build:
+    jobs:
+      - orb/pack:
+          name: pack
+          filters:
+            tags:
+              only: /.*/
+      - orb/test:
+          name: test
+          workflows: ls tests/*
+          requires:
+            - pack
+          filters:
+            tags:
+              only: /.*/
+          
+      - orb/publish-dev:
+          name: publish-dev
+          orb_path: suzuki-shunsuke/akoi
+          requires:
+            - pack
+            - test
+
+      - orb/publish:
+          name: publish
+          orb_path: suzuki-shunsuke/akoi
+          requires:
+            - pack
+            - test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/

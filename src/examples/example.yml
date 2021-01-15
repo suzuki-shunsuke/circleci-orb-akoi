@@ -17,7 +17,7 @@ usage:
             name: install git and curl
             command: apk add git curl
         - checkout
-        - akoi
+        - akoi/install
         - run:
             name: github-comment --version
             command: |

@@ -1,0 +1,6 @@
+---
+version: 2.1
+description: |
+  Install tools with akoi
+display:
+  source_url: https://github.com/suzuki-shunsuke/circleci-orb-akoi
